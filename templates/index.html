@@ -9,20 +9,18 @@
 </head>
 
 <body>
-    <h1>画像をアップロードしてください</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".png, .jpeg, .jpg, .webp" capture="user">
-        <input type="submit" value="送信">
-    </form>
+    <h1>あなたの相棒を決定します</h1>
+    <h2>動物を選択してください</h2>
+    <select id="change_js">
+        <option value=".cat">猫</option>
+        <option value=".dog">犬</option>
+        <option value=".fox">狐</option>
+        <select></script>
+            <form>
+                <form action="/upload" method="post">
+                </form>enctype="multipart/form-data">
+                <input type="submit" value="送信">
+            </form>
 </body>
 
 </html>

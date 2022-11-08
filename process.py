@@ -2,8 +2,8 @@ from PIL import Image
 
 
 def paste_frame(file):
-    frame_path = "images/frame.png"
-    output_path = "images/out.png"
+    frame_path = "static/images/frame.png"
+    output_path = "static/images/out.png"
     img = Image.open(file)
     frame = Image.open(frame_path)
     resized_frame = frame.resize((img.width, img.height))

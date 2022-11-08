@@ -10,8 +10,17 @@
 
 <body>
     <h1>画像をアップロードしてください</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".png, .jpeg, .jpg, .webp">
+        <input type="file" name="file" accept=".png, .jpeg, .jpg, .webp" capture="user">
         <input type="submit" value="送信">
     </form>
 </body>

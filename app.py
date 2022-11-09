@@ -1,71 +1,31 @@
-from flask import Flask, render_template, request, redirect, flash, request_finished
-from process import paste_frame
-import secrets,json
+from flask import Flask, render_template, request
+import requests
+import json
 
 app = Flask(__name__)
-# セッション情報を暗号化するためのキー設定
-app.secret_key = secrets.token_urlsafe(32)
 
-
-def cat():
-    response = requests.get("https://thecatapi.com/”)
-    # 返ってきたデータ(文字)をそのまま表示
-    print(response.text)
-    #jsonデータとしてロードして特定のデータのみ
-    print(json.loads(response.text)[“results”][0][“address1”])
-def dog():
-    response = requests.get("https://dog.ceo/api/breeds/image/random”)
-    # 返ってきたデータ(文字)をそのまま表示
-    print(response.text)
-    #jsonデータとしてロードして特定のデータのみ
-    print(json.loads(response.text)[“results”][0][“address1”])
-def fox():
-    response = requests.get("https:\/\/randomfox.ca\/?i=22”)
-    # 返ってきたデータ(文字)をそのまま表示
-    print(response.text)
-    #jsonデータとしてロードして特定のデータのみ
-    print(json.loads(response.text)[“results”][0][“address1”])
 
 @app.route("/")
-def show_from():
+def api():
     return render_template("index.html")
 
-@app.route("/post", methods=["GET,POST"])
-def upload_image():
-    if request.method == "POST":
-        animal = request.form["animal"]
-        if animal == "cat":
-            outanimal = api_get.cat()
 
-        elif animal == "dog":
-            outanimal = api_get.dog()
+@app.route("/post", methods=["POST"])
+def api2():
+    answer = request.form["animal"]
+    if answer == "cat":
+        res = requests.get("https://api.thecatapi.com/v1/images/search")
+        photo = json.loads(res.text)[0]["url"]
 
-        elif animal == "fox":
-            outanimal = api_get.fox()
+        # photo = res.json()
+    elif answer == "dog":
+        res = requests.get("https://dog.ceo/api/breeds/image/random")
+        photo = json.loads(res.text)["message"]
+    else:
+        res = requests.get("https://randomfox.ca/floof/")
+        photo = json.loads(res.text)["image"]
 
-        else:
-            outanimal = ""
-
-        return render_template("post.html", outanimal=outanimal)
-
-    # return redirect("/")
-    # if request.method == "GET":
-    #     posts = Post.query.all() 
-    # return redirect(index.html,post =post)
-
-    #     file = request.files["file"]
-    #     else:title =request.from.get(title)
-
-
-    #     if file.filename == "":
-    #         flash("ファイルが選択されていません")
-    #         return redirect(request.url)
-
-    #     if file:
-    #         outfile = paste_frame(file)
-    #         return render_template("upload.html", outfile=outfile)
-
-    # return redirect("/")
+    return render_template("post.html", photo=photo)
 
 
 if __name__ == "__main__":

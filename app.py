@@ -17,7 +17,6 @@ def api2():
         res = requests.get("https://api.thecatapi.com/v1/images/search")
         photo = json.loads(res.text)[0]["url"]
 
-        # photo = res.json()
     elif answer == "dog":
         res = requests.get("https://dog.ceo/api/breeds/image/random")
         photo = json.loads(res.text)["message"]
@@ -25,11 +24,11 @@ def api2():
         res = requests.get("https://randomfox.ca/floof/")
         photo = json.loads(res.text)["image"]
 
-    return render_template("post.html", photo=photo)
+    return render_template("upload.html", photo=photo)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True, port=5002)
 
 # If 猫
 # 　return “猫”

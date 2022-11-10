@@ -12,7 +12,7 @@ def api():
 
 @app.route("/post", methods=["POST"])
 def api2():
-    answer = request.form["animal"]
+    answer = request.form["change_js"]
     if answer == "cat":
         res = requests.get("https://api.thecatapi.com/v1/images/search")
         photo = json.loads(res.text)[0]["url"]
@@ -24,7 +24,7 @@ def api2():
         res = requests.get("https://randomfox.ca/floof/")
         photo = json.loads(res.text)["image"]
 
-    return render_template("upload.html", photo=photo)
+    return render_template("upload.html", outfile=photo)
 
 
 if __name__ == "__main__":

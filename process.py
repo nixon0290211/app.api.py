@@ -1,15 +1,12 @@
-from PIL import Image
+import pyautogui
 
 
-def paste_frame(file):
-
-    frame_path = "static/images/frame.png"
-    output_path = "static/images/out.png"
-    img = Image.open(file)
-    frame = Image.open(frame_path)
-
-    resized_frame = frame.resize((img.width, img.height))
-    img.paste(resized_frame, (0, 0), resized_frame)
-
-    img.save(output_path)
-    return output_path
+print("Press Ctrl-C to quit.")
+try:
+    while True:
+        x, y = pyautogui.position()
+        positionStr = "X: " + str(x).rjust(4) + " Y: " + str(y).rjust(4)
+        print(positionStr, end="")
+        print("\b" * len(positionStr), end="", flush=True)
+except KeyboardInterrupt:
+    print("\n")
